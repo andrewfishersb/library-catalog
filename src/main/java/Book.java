@@ -36,7 +36,7 @@ public class Book {
       return false;
     }else{
       Book newBook = (Book) otherBook;
-      return this.getName().equals(newBook.getName()) &&  this.getAuthor.equals(newBook.getAuthor());
+      return this.getTitle().equals(newBook.getTitle()) &&  this.getAuthor().equals(newBook.getAuthor());
     }
   }
 
@@ -49,13 +49,13 @@ public class Book {
   public static List<Book> all(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM books";
-      con.createQuery(sql).executeAndFetch(Book.class);
+      return con.createQuery(sql).executeAndFetch(Book.class);
     }
   }
 
   public static Book find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks where id=:id";
+      String sql = "SELECT * FROM books where id=:id";
       return con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Book.class);
@@ -64,7 +64,7 @@ public class Book {
 
   public void update(String title, String author, int patronId) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET title = :title, author = :author, patronId = :patronId WHERE id = :id";
+      String sql = "UPDATE books SET title = :title, author = :author, patronId = :patronId WHERE id = :id";
       con.createQuery(sql)
         .addParameter("title", title)
         .addParameter("author", author)

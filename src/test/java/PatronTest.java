@@ -8,72 +8,69 @@ public class PatronTest {
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
- //  @Test
- //  public void person_instantiatesCorrectly_true() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    assertEquals(true, testPerson instanceof Person);
- //  }
- //  @Test
- //  public void getName_personInstantiatesWithName_Henry() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    assertEquals("Henry", testPerson.getName());
- //  }
- //
- //  @Test
- //  public void getName_personInstantiatesWithEmail_String() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    assertEquals("henry@henry.com", testPerson.getEmail());
- //  }
- //
- //  @Test
- //  public void equals_returnsTrueIfNameAndEmailAreSame_true() {
- //   Person firstPerson = new Person("Henry", "henry@henry.com");
- //   Person anotherPerson = new Person("Henry", "henry@henry.com");
- //   assertTrue(firstPerson.equals(anotherPerson));
- // }
- // @Test
- //  public void save_insertsObjectIntoDatabase_Person() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    testPerson.save();
- //    assertTrue(Person.all().get(0).equals(testPerson));
- //  }
- //
- //  @Test
- //  public void all_returnsAllInstancesOfPerson_true() {
- //    Person firstPerson = new Person("Henry", "henry@henry.com");
- //    firstPerson.save();
- //    Person secondPerson = new Person("Harriet", "harriet@harriet.com");
- //    secondPerson.save();
- //    assertEquals(true, Person.all().get(0).equals(firstPerson));
- //    assertEquals(true, Person.all().get(1).equals(secondPerson));
- //  }
- //
- //  @Test
- //  public void save_assignsIdToObject() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    testPerson.save();
- //    Person savedPerson = Person.all().get(0);
- //    assertEquals(testPerson.getId(), savedPerson.getId());
- //  }
- //
- //  @Test
- //  public void find_returnsPersonWithSameId_secondPerson() {
- //    Person firstPerson = new Person("Henry", "henry@henry.com");
- //    firstPerson.save();
- //    Person secondPerson = new Person("Harriet", "harriet@harriet.com");
- //    secondPerson.save();
- //    assertEquals(Person.find(secondPerson.getId()), secondPerson);
- //  }
- //
- //  @Test
- //  public void getMonsters_retrievesAllMonstersFromDatabase_monstersList() {
- //    Person testPerson = new Person("Henry", "henry@henry.com");
- //    testPerson.save();
- //    Monster firstMonster = new Monster("Bubbles", testPerson.getId());
- //    firstMonster.save();
- //    Monster secondMonster = new Monster("Spud", testPerson.getId());
- //    secondMonster.save();
- //    Monster[] monsters = new Monster[] { firstMonster, secondMonster };
- //    assertTrue(testPerson.getMonsters().containsAll(Arrays.asList(monsters)));
- //  }
+  @Test
+  public void patron_instantiatesCorrectly_true() {
+    Patron testPatron = new Patron("Henry");
+    assertEquals(true, testPatron instanceof Patron);
+  }
+  @Test
+  public void getName_patronInstantiatesWithName_Henry() {
+    Patron testPatron = new Patron("Henry");
+    assertEquals("Henry", testPatron.getName());
+  }
+
+
+
+  @Test
+  public void equals_returnsTrueIfNamesAreTheSame_true() {
+   Patron firstPatron = new Patron("Henry");
+   Patron anotherPatron = new Patron("Henry");
+   assertTrue(firstPatron.equals(anotherPatron));
+ }
+
+ @Test
+  public void save_insertsObjectIntoDatabase_Patron() {
+    Patron testPatron = new Patron("Henry");
+    testPatron.save();
+    assertTrue(Patron.all().get(0).equals(testPatron));
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfPatron_true() {
+    Patron firstPatron = new Patron("Henry");
+    firstPatron.save();
+    Patron secondPatron = new Patron("Harriet");
+    secondPatron.save();
+    assertEquals(true, Patron.all().get(0).equals(firstPatron));
+    assertEquals(true, Patron.all().get(1).equals(secondPatron));
+  }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Patron testPatron = new Patron("Henry");
+    testPatron.save();
+    Patron savedPatron = Patron.all().get(0);
+    assertEquals(testPatron.getId(), savedPatron.getId());
+  }
+
+  @Test
+  public void find_returnsPatronWithSameId_secondPatron() {
+    Patron firstPatron = new Patron("Henry");
+    firstPatron.save();
+    Patron secondPatron = new Patron("Harriet");
+    secondPatron.save();
+    assertEquals(Patron.find(secondPatron.getId()), secondPatron);
+  }
+
+  @Test
+  public void getBooks_retrievesAllBooksFromDatabase_booksList() {
+    Patron testPatron = new Patron("Henry");
+    testPatron.save();
+    Book firstBook = new Book("Harry Potter","Jk Rowling", testPatron.getId());
+    firstBook.save();
+    Book secondBook = new Book("I'm Hungry Games","One hit wonder", testPatron.getId());
+    secondBook.save();
+    Book[] books = new Book[] { firstBook, secondBook };
+    assertTrue(testPatron.getBooks().containsAll(Arrays.asList(books)));
+  }
 }

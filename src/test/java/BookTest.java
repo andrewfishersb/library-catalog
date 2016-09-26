@@ -8,185 +8,63 @@ public class BookTest {
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
-  // @Test
-  // public void monster_instantiatesCorrectly_true() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(true, testMonster instanceof Monster);
-  // }
-  // @Test
-  // public void Monster_instantiatesWithName_String() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals("Bubbles", testMonster.getName());
-  // }
-  // @Test
-  // public void Monster_instantiatesWithPersonId_int() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(1, testMonster.getPersonId());
-  // }
-  // @Test
-  // public void equals_returnsTrueIfNameAndPersonIdAreSame_true() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   Monster anotherMonster = new Monster("Bubbles", 1);
-  //   assertTrue(testMonster.equals(anotherMonster));
-  // }
-  // @Test
-  // public void save_returnsTrueIfDescriptionsAretheSame() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   testMonster.save();
-  //   assertTrue(Monster.all().get(0).equals(testMonster));
-  // }
-  //
-  // @Test
-  // public void all_returnsAllInstancesOfMonster_true() {
-  //   Monster firstMonster = new Monster("Bubbles", 1);
-  //   firstMonster.save();
-  //   Monster secondMonster = new Monster("Spud", 1);
-  //   secondMonster.save();
-  //   assertEquals(true, Monster.all().get(0).equals(firstMonster));
-  //   assertEquals(true, Monster.all().get(1).equals(secondMonster));
-  // }
-  //
-  // @Test
-  // public void find_returnsMonsterWithSameId_secondMonster() {
-  //   Monster firstMonster = new Monster("Bubbles", 1);
-  //   firstMonster.save();
-  //   Monster secondMonster = new Monster("Spud", 3);
-  //   secondMonster.save();
-  //   assertEquals(Monster.find(secondMonster.getId()), secondMonster);
-  // }
-  //
-  // @Test
-  // public void save_savesPersonIdIntoDB_true() {
-  //   Person testPerson = new Person("Henry", "henry@henry.com");
-  //   testPerson.save();
-  //   Monster testMonster = new Monster("Bubbles", testPerson.getId());
-  //   testMonster.save();
-  //   Monster savedMonster = Monster.find(testMonster.getId());
-  //   assertEquals(savedMonster.getPersonId(), testPerson.getId());
-  // }
-  //
-  // @Test
-  // public void monster_instantiatesWithHalfFullPlayLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(testMonster.getPlayLevel(), (Monster.MAX_PLAY_LEVEL / 2));
-  // }
-  //
-  // @Test
-  // public void monster_instantiatesWithHalfFullSleepLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(testMonster.getSleepLevel(), (Monster.MAX_SLEEP_LEVEL / 2));
-  // }
-  //
-  // @Test
-  // public void monster_instantiatesWithHalfFullFoodLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(testMonster.getFoodLevel(), (Monster.MAX_FOOD_LEVEL / 2));
-  // }
-  //
-  // @Test
-  // public void isAlive_confirmsMonsterIsAliveIfAllLevelsAboveMinimum_true(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   assertEquals(testMonster.isAlive(), true);
-  // }
-  //
-  // @Test
-  // public void depleteLevels_reducesAllLevels(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   testMonster.depleteLevels();
-  //   assertEquals(testMonster.getFoodLevel(), (Monster.MAX_FOOD_LEVEL / 2) - 1);
-  //   assertEquals(testMonster.getSleepLevel(), (Monster.MAX_SLEEP_LEVEL / 2) - 1);
-  //   assertEquals(testMonster.getPlayLevel(), (Monster.MAX_PLAY_LEVEL / 2) - 1);
-  // }
-  // @Test
-  // public void isAlive_recognizesMonsterIsDeadWhenLevelsReachMinimum_false(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= Monster.MAX_FOOD_LEVEL; i++){
-  //     testMonster.depleteLevels();
-  //   }
-  //   assertEquals(testMonster.isAlive(), false);
-  // }
-  //
-  // @Test
-  // public void play_increasesMonsterPlayLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   testMonster.play();
-  //   assertTrue(testMonster.getPlayLevel() > (Monster.MAX_PLAY_LEVEL / 2));
-  // }
-  //
-  // @Test
-  // public void feed_increasesMonsterFoodLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   testMonster.feed();
-  //   assertTrue(testMonster.getFoodLevel() > (Monster.MAX_FOOD_LEVEL / 2));
-  // }
-  // @Test
-  // public void sleep_increasesMonsterSleepLevel(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   testMonster.sleep();
-  //   assertTrue(testMonster.getSleepLevel() > (Monster.MAX_SLEEP_LEVEL / 2));
-  // }
-  //
-  // @Test
-  // public void monster_foodLevelCannotGoBeyondMaxValue(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= (Monster.MAX_FOOD_LEVEL); i++){
-  //     try {
-  //       testMonster.feed();
-  //     } catch (UnsupportedOperationException exception) {
-  //
-  //     }
-  //   }
-  //   assertTrue(testMonster.getFoodLevel() <= Monster.MAX_FOOD_LEVEL);
-  // }
-  //
-  // @Test(expected = UnsupportedOperationException.class)
-  // public void feed_throwsExceptionIfFoodLevelIsAtMaxValue() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= (Monster.MAX_FOOD_LEVEL); i++) {
-  //     testMonster.feed();
-  //   }
-  // }
-  //
-  // @Test(expected = UnsupportedOperationException.class)
-  // public void play_throwsExceptionIfPlayLevelIsMaxValue() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= (Monster.MAX_PLAY_LEVEL); i++) {
-  //     testMonster.play();
-  //   }
-  // }
-  //
-  // @Test
-  // public void monster_playLevelCannotGoBeyondMaxValue() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <=(Monster.MAX_PLAY_LEVEL); i++) {
-  //     try {
-  //       testMonster.play();
-  //     } catch (UnsupportedOperationException exception) {
-  //
-  //     }
-  //     assertTrue(testMonster.getPlayLevel() <= Monster.MAX_PLAY_LEVEL);
-  //   }
-  // }
-  //
-  // @Test(expected = UnsupportedOperationException.class)
-  // public void sleep_throwsExceptionIfSleepLevelIsAtMaxValue(){
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= (Monster.MAX_SLEEP_LEVEL); i++){
-  //     testMonster.sleep();
-  //   }
-  // }
-  //
-  // @Test
-  // public void monster_sleepLevelCannotGoBeyondMaxValue() {
-  //   Monster testMonster = new Monster("Bubbles", 1);
-  //   for(int i = Monster.MIN_ALL_LEVELS; i <= (Monster.MAX_SLEEP_LEVEL); i++) {
-  //     try {
-  //       testMonster.sleep();
-  //     } catch (UnsupportedOperationException exception){
-  //
-  //     }
-  //     assertTrue(testMonster.getSleepLevel() <= Monster.MAX_SLEEP_LEVEL);
-  //   }
-  // }
+  @Test
+  public void book_instantiatesCorrectly_true() {
+    Book testBook = new Book("Harry Potter","JK Rowling", 1);
+    assertEquals(true, testBook instanceof Book);
+  }
+
+  @Test
+  public void Book_instantiatesWithName_String() {
+    Book testBook = new Book("Harry Potter","JK Rowling", 1);
+    assertEquals("Harry Potter", testBook.getTitle());
+  }
+  @Test
+  public void Book_instantiatesWithPatronId_int() {
+    Book testBook = new Book("Harry Potter","JK Rowling", 1);
+    assertEquals(1, testBook.getPatronId());
+  }
+  @Test
+  public void equals_returnsTrueIfNameAndAuthorAndPatronIdAreSame_true() {
+    Book testBook = new Book("Harry Potter","JK Rowling", 1);
+    Book anotherBook = new Book("Harry Potter","JK Rowling", 1);
+    assertTrue(testBook.equals(anotherBook));
+  }
+  @Test
+  public void save_returnsTrueIfTitlesAretheSame() {
+    Book testBook = new Book("Harry Potter","JK Rowling", 1);
+    testBook.save();
+    assertTrue(Book.all().get(0).equals(testBook));
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfBook_true() {
+    Book firstBook = new Book("Harry Potter","JK Rowling", 1);
+    firstBook.save();
+    Book secondBook = new Book("Lord of The Rings", "JR Tolkien", 1);
+    secondBook.save();
+    assertEquals(true, Book.all().get(0).equals(firstBook));
+    assertEquals(true, Book.all().get(1).equals(secondBook));
+  }
+
+  @Test
+  public void find_returnsBookWithSameId_secondBook() {
+    Book firstBook = new Book("Harry Potter","JK Rowling", 1);
+    firstBook.save();
+    Book secondBook = new Book("Lord of The Rings", "JR Tolkien", 1);
+    secondBook.save();
+    assertEquals(Book.find(secondBook.getId()), secondBook);
+  }
+
+  @Test
+  public void save_savesPatronIdIntoDB_true() {
+    Patron testPatron = new Patron("Henry");
+    testPatron.save();
+    Book testBook = new Book("Harry Potter","JK Rowling", testPatron.getId());
+    testBook.save();
+    Book savedBook = Book.find(testBook.getId());
+    assertEquals(savedBook.getPatronId(), testPatron.getId());
+  }
+
 
 }

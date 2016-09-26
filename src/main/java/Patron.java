@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Patron {
   private String name;
-  private id;
+  private int id;
 
 
   public Patron(String name){
@@ -41,14 +41,14 @@ public class Patron {
     }
   }
 
-  public List<Patron> all(){
+  public static List<Patron> all(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM patrons";
-      con.createQuery(sql).executeAndFetch(Patron.class);
+      return con.createQuery(sql).executeAndFetch(Patron.class);
     }
   }
 
-  public Patron find(int id){
+  public static Patron find(int id){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM patrons WHERE id=:id";
       return con.createQuery(sql).addParameter("id",id)
