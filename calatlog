@@ -1,0 +1,14 @@
+Book
+name - varchar
+author - varchar
+checkout - timestamp
+dueDate - timestamp
+overdue - boolean
+?timesRenewed - int max-2
+patronId - int
+id - int
+
+Patron
+name - varcahr
+booklimit - int
+id - int
