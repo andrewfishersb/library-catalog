@@ -73,4 +73,15 @@ public class PatronTest {
     Book[] books = new Book[] { firstBook, secondBook };
     assertTrue(testPatron.getBooks().containsAll(Arrays.asList(books)));
   }
+
+  @Test
+  public void searchAuthors_SearchesForPartOfAuthor(){
+    Patron firstPatron = new Patron("Harry");
+    firstPatron.save();
+    Patron secondPatron = new Patron("Lorde");
+    secondPatron.save();
+    Patron thirdPatron = new Patron("Collin");
+    thirdPatron.save();
+    assertEquals("Collin", Patron.searchPatrons("L").get(1).getName());
+  }
 }

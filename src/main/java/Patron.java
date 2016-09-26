@@ -4,11 +4,14 @@ import java.util.List;
 
 public class Patron {
   private String name;
+  private int bookLimit;
   private int id;
 
+  public static final int MAX_CHECKOUT = 2;
 
   public Patron(String name){
     this.name = name;
+    this.bookLimit = 0;
   }
 
   public String getName(){
@@ -19,6 +22,13 @@ public class Patron {
     return id;
   }
 
+  public void checkOut() {
+    if (bookLimit >= MAX_CHECKOUT) {
+      throw new UnsupportedOperationException("You cannot checkout anymore books.");
+    }
+    // Book book = Book.updatePatron(this.id);
+    bookLimit++;
+  }
 
   @Override
   public boolean equals(Object otherPatron) {
@@ -74,6 +84,15 @@ public class Patron {
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM books WHERE patronId=:id";
       return con.createQuery(sql).addParameter("id",id).executeAndFetch(Book.class);
+    }
+  }
+
+  public static List<Patron> searchPatrons(String search){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT name FROM patrons WHERE lower(name) LIKE :name";
+      search = "%" + search + "%";
+      search = search.toLowerCase();
+      return con.createQuery(sql).addParameter("name",search).executeAndFetch(Patron.class);
     }
   }
 

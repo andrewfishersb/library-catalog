@@ -1,7 +1,9 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
-
+import java.text.DateFormat;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class BookTest {
 
@@ -66,5 +68,52 @@ public class BookTest {
     assertEquals(savedBook.getPatronId(), testPatron.getId());
   }
 
+  @Test
+  public void searchBooks_SearchesForPartOfAName(){
+    Book firstBook = new Book("Harry Potter","JK Rowling", 1);
+    firstBook.save();
+    Book secondBook = new Book("Lord of The Rings", "JR Tolkien", 1);
+    secondBook.save();
+    Book thirdBook = new Book("Hunger Games", "Collins", 1);
+    thirdBook.save();
+    assertEquals("Lord of The Rings", Book.searchBooks("H").get(1).getTitle());
+  }
+
+  @Test
+  public void searchAuthors_SearchesForPartOfAuthor(){
+    Book firstBook = new Book("Harry Potter","JK Rowling", 1);
+    firstBook.save();
+    Book secondBook = new Book("Lord of The Rings", "JR Tolkien", 1);
+    secondBook.save();
+    Book thirdBook = new Book("Hunger Games", "Collins", 1);
+    thirdBook.save();
+    assertEquals("Collins", Book.searchAuthors("C").get(0).getAuthor());
+  }
+
+  @Test
+  public void checkout_UpdatesTheCurrentRenter(){
+    Patron firstPatron = new Patron("Tequila");
+    firstPatron.save();
+    Patron secondPatron = new Patron("Jorge");
+    secondPatron.save();
+    Book theBook = new Book("Harry Potter","JK",firstPatron.getId());
+    theBook.save();
+    theBook.updatePatron(secondPatron.getId());
+    assertEquals("Jorge",Patron.find(theBook.getPatronId()).getName());
+  }
+
+  @Test
+  public void checkout_GivesUsTheProperCheckoutAndDueDate(){
+    Patron firstPatron = new Patron("Tequila");
+    firstPatron.save();
+    Book theBook = new Book("Harry Potter","JK",firstPatron.getId());
+    theBook.save();
+    theBook.checkOut();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    long addTwoWeeks = rightNow.getTime()+1209600033;
+    Timestamp expectedDueDate = new Timestamp(addTwoWeeks);
+    assertEquals(rightNow.getDay(),theBook.getCheckOutDate().getDay());
+    assertEquals(expectedDueDate.getDay(),theBook.getDueDate().getDay());
+  }
 
 }
