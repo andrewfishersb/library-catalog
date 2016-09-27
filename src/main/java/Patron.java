@@ -22,13 +22,13 @@ public class Patron {
     return id;
   }
 
-  public void checkOut() {
-    if (bookLimit >= MAX_CHECKOUT) {
-      throw new UnsupportedOperationException("You cannot checkout anymore books.");
-    }
-    // Book book = Book.updatePatron(this.id);
-    bookLimit++;
-  }
+  // public void checkOut() {
+  //   if (bookLimit >= MAX_CHECKOUT) {
+  //     throw new UnsupportedOperationException("You cannot checkout anymore books.");
+  //   }
+  //   // Book book = Book.updatePatron(this.id);
+  //   bookLimit++;
+  // }
 
   @Override
   public boolean equals(Object otherPatron) {
@@ -80,11 +80,22 @@ public class Patron {
     }
   }
 
-  public List<Book> getBooks(){
+  public List<Object> getMedia(){
+    List<Object> allMedia = new ArrayList<Object>();
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM books WHERE patronId=:id";
-      return con.createQuery(sql).addParameter("id",id).executeAndFetch(Book.class);
+      String sqlBook = "SELECT * FROM media WHERE patronId=:id AND type='book'";
+      List<Book> books = con.createQuery(sqlBook).addParameter("id",this.id).throwOnMappingFailure(false).executeAndFetch(Book.class);
+       allMedia.addAll(books);
+
+     String sqlCD = "SELECT * FROM media WHERE patronid=:id AND type='cd'";
+     List<CD> allCDs = con.createQuery(sqlCD).addParameter("id",this.id).throwOnMappingFailure(false).executeAndFetch(CD.class);
+     allMedia.addAll(allCDs);
+
+     String sqlMagazine = "SELECT * FROM media WHERE patronId=:id AND type='magazine'";
+     List<Magazine> magazines = con.createQuery(sqlMagazine).addParameter("id", this.id).throwOnMappingFailure(false).executeAndFetch(Magazine.class);
+     allMedia.addAll(magazines);
     }
+    return allMedia;
   }
 
   public static List<Patron> searchPatrons(String search){
